@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<odoo>
+
+    <record id="view_store_customer_calendar" model="ir.ui.view">
+       <field name="name">store.customer.calendar</field>
+       <field name="model">store.customer</field>
+       <field name="arch" type="xml">
+           <calendar string="Enrollment Calendar" date_start="date">
+               <field name="name"/>
+               <field name="address"/>
+           </calendar>
+       </field>
+    </record>
+
+    <record id="view_store_customer_search" model="ir.ui.view">
+       <field name="name">store.customer.search</field>
+       <field name="model">store.customer</field>
+       <field name="arch" type="xml">
+           <search string="Search Students">
+                <field name="name"/>
+                <field name="address"/>
+                <field name="age" />
+                <field name="state" />
+                <field name="date" />
+           </search>
+       </field>
+    </record>
+
+    <record id="view_store_customer_list" model="ir.ui.view">
+        <field name="name">store.customer.list</field>
+        <field name="model">store.customer</field>
+        <field name="arch" type="xml">
+            <list string="Customer List">
+                <field name="name"/>
+                <field name="address"/>
+                <field name="age" />
+                <field name="state" />
+                <field name="date" />
+            </list>
+        </field>
+    </record>
+
+    <record id="view_store_customer_form" model="ir.ui.view">
+        <field name="name">store.customer.form</field>
+        <field name="model">store.customer</field>
+        <field name="arch" type="xml">
+            <form string="Customer Form">
+                <header>
+                    <button name="action_schedule" type="object" string="Schedule" invisible="state != 'draft'"></button>
+                    <button name="action_deliver" type="object" string="Deliver" invisible="state != 'scheduled'"></button>
+                    <button name="action_cancel" type="object" string="Cancel" invisible="state in ['delivered', 'cancelled']"></button>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,scheduled,delivered"></field>
+                </header>
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="address"/>
+                        <field name="age" />
+                        <field name="product_ids" />
+                        <field name="date" />
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_store_customer" model="ir.actions.act_window">
+
+        <field name="name">Customer</field>
+        <field name="res_model">store.customer</field>
+        <field name="view_mode">list,form,search,calendar</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create Customers.
+            </p>
+        </field>
+    </record>
+
+</odoo>

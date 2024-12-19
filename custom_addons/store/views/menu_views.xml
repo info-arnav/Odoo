@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<odoo>
+
+    <menuitem id="menu_root_store" name="Store"/>
+    <menuitem id="menu_store_customer" name="Customers" parent="menu_root_store" action="action_store_customer" />
+    <menuitem id="menu_store_all_products" name="Products" parent="menu_root_store"/>
+    <menuitem id="menu_store_product" name="Create Product" parent="menu_store_all_products" action="action_store_product" />
+    <menuitem id="menu_store_product_list" name="Product List" parent="menu_store_all_products" action="action_store_product_list" />
+    <menuitem id="menu_store_tag" name="Tags" parent="menu_root_store" action="action_store_tag" />
+
+</odoo>

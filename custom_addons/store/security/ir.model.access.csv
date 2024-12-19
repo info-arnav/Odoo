@@ -1,0 +1,5 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_store_customer,store_customer,model_store_customer,store.group_store_receptionist,1,1,1,1
+access_store_tag,store_tag,model_store_tag,store.group_store_receptionist,1,1,1,1
+access_store_product,store_product,model_store_product,store.group_store_receptionist,1,1,1,1
+access_store_product_list,store_product_list,model_store_product_list,store.group_store_receptionist,1,1,1,1
