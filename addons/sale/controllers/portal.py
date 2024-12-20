@@ -343,6 +343,49 @@ class CustomerPortal(payment_portal.PaymentPortal):
 
         return request.redirect(redirect_url)
 
+    @http.route(['/my/orders/<int:order_id>/counter'], type='http', auth="public", methods=['POST'], website=True)
+    def portal_quote_counter(self, order_id, data=None, access_token=None, decline_message=None, counter_price=None, **kwargs):
+        try:
+            order_sudo = self._document_check_access('sale.order', order_id, access_token=access_token)
+        except (AccessError, MissingError):
+            return request.redirect('/my')
+
+        print(order_id, access_token, data, self, kwargs, counter_price)
+
+        redirect_url = order_sudo.get_portal_url()
+
+        return request.redirect(redirect_url)
+
+        # try:
+        #     order_sudo = self._document_check_access('sale.order', order_id, access_token=access_token)
+        # except (AccessError, MissingError):
+        #     return request.redirect('/my')
+
+        # if order_sudo._has_to_be_signed() and decline_message:
+        #     order_sudo._action_cancel()
+        #     # The currency is manually cached while in a sudoed environment to prevent an
+        #     # AccessError. The state of the Sales Order is a dependency of
+        #     # `untaxed_amount_to_invoice`, which is a monetary field. They require the currency to
+        #     # ensure the values are saved in the correct format. However, the currency cannot be
+        #     # read directly during the flush due to access rights, necessitating manual caching.
+        #     order_sudo.order_line.currency_id
+
+        #     order_sudo.message_post(
+        #         author_id=(
+        #             order_sudo.partner_id.id
+        #             if request.env.user._is_public()
+        #             else request.env.user.partner_id.id
+        #         ),
+        #         body=decline_message,
+        #         message_type='comment',
+        #         subtype_xmlid='mail.mt_comment',
+        #     )
+        #     redirect_url = order_sudo.get_portal_url()
+        # else:
+        #     redirect_url = order_sudo.get_portal_url(query_string="&message=cant_reject")
+
+        # return request.redirect(redirect_url)
+
     @http.route('/my/orders/<int:order_id>/document/<int:document_id>', type='http', auth='public')
     def portal_quote_document(self, order_id, document_id, access_token):
         try:

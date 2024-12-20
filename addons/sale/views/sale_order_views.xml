@@ -420,6 +420,7 @@
                                                 context="{
                                                     'partner_id': parent.partner_id,
                                                     'quantity': product_uom_qty,
+                                                    'counter_price': product_uom_counter_price,
                                                     'pricelist': parent.pricelist_id,
                                                     'uom': product_uom,
                                                     'company_id': parent.company_id,
@@ -442,8 +443,22 @@
                                         <label for="product_uom_qty"/>
                                         <div class="o_row" name="ordered_qty">
                                             <field
-                                                context="{'partner_id':parent.partner_id, 'quantity':product_uom_qty, 'pricelist':parent.pricelist_id, 'uom':product_uom, 'uom_qty_change':True, 'company_id': parent.company_id}"
+                                                context="{'partner_id':parent.partner_id, 'quantity':product_uom_qty,
+                                                    'counter_price': product_uom_counter_price, 'pricelist':parent.pricelist_id, 'uom':product_uom, 'uom_qty_change':True, 'company_id': parent.company_id}"
                                                 name="product_uom_qty"/>
+                                            <field name="product_uom" invisible="1" groups="!uom.group_uom"/>
+                                            <field
+                                                name="product_uom"
+                                                force_save="1"
+                                                groups="uom.group_uom"
+                                                class="oe_no_button"
+                                                readonly="product_uom_readonly"
+                                                required="not display_type and not is_downpayment"/>
+                                        </div>
+                                        <label for="product_uom_counter_price"/>
+                                        <div class="o_row" name="ordered_counter_price">
+                                            <field
+                                                name="product_uom_counter_price"/>
                                             <field name="product_uom" invisible="1" groups="!uom.group_uom"/>
                                             <field
                                                 name="product_uom"
@@ -530,6 +545,8 @@
                                     context="{
                                         'partner_id': parent.partner_id,
                                         'quantity': product_uom_qty,
+                                        
+                                                    'counter_price': product_uom_counter_price,
                                         'pricelist': parent.pricelist_id,
                                         'uom':product_uom,
                                         'company_id': parent.company_id,
@@ -548,7 +565,8 @@
                                     required="not display_type and not is_downpayment"
                                     context="{
                                         'partner_id': parent.partner_id,
-                                        'quantity': product_uom_qty,
+                                        'quantity': product_uom_qty, 
+                                                    'counter_price': product_uom_counter_price,
                                         'pricelist': parent.pricelist_id,
                                         'uom':product_uom,
                                         'company_id': parent.company_id,
@@ -591,10 +609,15 @@
                                     context="{
                                         'partner_id': parent.partner_id,
                                         'quantity': product_uom_qty,
+                                                    'counter_price': product_uom_counter_price,
                                         'pricelist': parent.pricelist_id,
                                         'uom': product_uom,
                                         'company_id': parent.company_id
                                     }"
+                                    readonly="is_downpayment"/>
+                                <field
+                                    name="product_uom_counter_price"
+                                    decoration-info="(not display_type and invoice_status == 'to invoice')" decoration-bf="(not display_type and invoice_status == 'to invoice')"
                                     readonly="is_downpayment"/>
                                 <field
                                     name="qty_delivered"
@@ -704,6 +727,10 @@
                                                 <div class="text-muted">
                                                     Quantity:
                                                     <field name="product_uom_qty"/> <field name="product_uom"/>
+                                                </div>
+                                                 <div class="text-muted">
+                                                    Counter Price:
+                                                    <field name="product_uom_counter_price"/> <field name="product_uom"/>
                                                 </div>
                                                 <div class="text-muted">
                                                     Unit Price:

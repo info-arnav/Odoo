@@ -127,6 +127,10 @@ class SaleOrderLine(models.Model):
         compute='_compute_product_uom_qty',
         digits='Product Unit of Measure', default=1.0,
         store=True, readonly=False, required=True, precompute=True)
+    product_uom_counter_price = fields.Float(
+        string="Counter Price",
+        digits='Product Unit of Measure', default=0,
+        store=True, readonly=False, precompute=True)
     product_uom = fields.Many2one(
         comodel_name='uom.uom',
         string="Unit of Measure",
