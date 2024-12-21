@@ -620,6 +620,11 @@
                             </t>
                         </tbody>
                     </table>
+                    <form id="counter" method="POST" t-attf-action="/my/orders/#{sale_order.id}/counter?access_token=#{sale_order.access_token}" class="modal-content">
+                    <input t-att-value="sale_order.counter_price" name="counter_price" placeholder="Counter Price :"/>
+                    <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                    <button type="submit" t-att-id="sale_order.id" class="btn btn-danger">Propose Counter</button>
+                    </form>
                 </div>
 
                 <div id="total" name="total" style="page-break-inside: avoid;">

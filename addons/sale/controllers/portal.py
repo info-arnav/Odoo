@@ -342,6 +342,22 @@ class CustomerPortal(payment_portal.PaymentPortal):
             redirect_url = order_sudo.get_portal_url(query_string="&message=cant_reject")
 
         return request.redirect(redirect_url)
+    
+    @http.route(['/my/orders/<int:order_id>/counter'], type='http', auth="public", methods=['POST'], website=True)
+    def portal_quote_decline(self, order_id, access_token=None, counter_price=0):
+        try:
+            order_sudo = self._document_check_access('sale.order', order_id, access_token=access_token)
+        except (AccessError, MissingError):
+            return request.redirect('/my')
+
+        order_sudo.write({
+                'counter_price': counter_price
+            })
+
+        redirect_url = order_sudo.get_portal_url()
+        return request.redirect(redirect_url)
+   
+    
 
     @http.route('/my/orders/<int:order_id>/document/<int:document_id>', type='http', auth='public')
     def portal_quote_document(self, order_id, document_id, access_token):
