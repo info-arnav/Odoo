@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record model="ir.ui.view" id="view_sale_order_poem_kanban">
+        <field name="name">sale.order.poem.view.kanban</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_sale_order_kanban"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='name']" position="after">
+                <field name="name"/>
+                <field name="name"/>
+                <field name="poem"/>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>
