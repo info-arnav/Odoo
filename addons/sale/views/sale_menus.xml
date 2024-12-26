@@ -209,6 +209,11 @@
             </menuitem>
 
         </menuitem>
+        <menuitem id="menu_orders_logs"
+            name="Logs"
+            groups="sales_team.group_sale_salesman"
+            action="action_orders_logs"
+            sequence="60" />
     </menuitem>
 
 </odoo>

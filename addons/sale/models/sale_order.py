@@ -918,6 +918,7 @@ class SaleOrder(models.Model):
 
     #=== CRUD METHODS ===#
 
+
     @api.model_create_multi
     def create(self, vals_list):
         for vals in vals_list:
@@ -927,8 +928,11 @@ class SaleOrder(models.Model):
                 ) if 'date_order' in vals else None
                 vals['name'] = self.env['ir.sequence'].with_company(vals.get('company_id')).next_by_code(
                     'sale.order', sequence_date=seq_date) or _("New")
-
-        return super().create(vals_list)
+        super_id = super().create(vals_list)
+        # print(super_id)
+        self.env['orders.logs'].create([{"order_id": super_id.id, "updated": fields.Datetime.now()}])
+        # print("action")
+        return super_id
 
     def _get_copiable_order_lines(self):
         """Returns the order lines that can be copied to a new order."""
@@ -963,6 +967,7 @@ class SaleOrder(models.Model):
             self.filtered(lambda so: so.state in ('sent', 'sale')).message_subscribe(
                 partner_ids=[vals['partner_id']],
             )
+        self.env['orders.logs'].create({"order_id": vals, "updated": fields.Datetime.now()})
         return res
 
     #=== ACTION METHODS ===#
