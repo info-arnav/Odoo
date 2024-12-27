@@ -966,7 +966,8 @@ class SaleOrder(models.Model):
             self.filtered(lambda so: so.state in ('sent', 'sale')).message_subscribe(
                 partner_ids=[vals['partner_id']],
             )
-        self.env['orders.logs'].create({"order_id": vals, "updated": fields.Datetime.now()})
+        # print(vals)
+        # self.env['orders.logs'].create({"order_id": vals[0][1], "updated": fields.Datetime.now()})
         return res
 
     #=== ACTION METHODS ===#
