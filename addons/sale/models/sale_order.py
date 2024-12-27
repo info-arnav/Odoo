@@ -928,9 +928,8 @@ class SaleOrder(models.Model):
                 ) if 'date_order' in vals else None
                 vals['name'] = self.env['ir.sequence'].with_company(vals.get('company_id')).next_by_code(
                     'sale.order', sequence_date=seq_date) or _("New")
-        super_id = super().create(vals_list)
-        # print(super_id)
-        self.env['orders.logs'].create([{"order_id": super_id.id, "updated": fields.Datetime.now()}])
+            super_id = super().create([vals])
+            self.env['orders.logs'].create([{"order_id": super_id.id, "updated": fields.Datetime.now()}])
         # print("action")
         return super_id
 
