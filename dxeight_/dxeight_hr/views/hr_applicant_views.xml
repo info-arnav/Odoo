@@ -1,0 +1,45 @@
+<odoo>
+    <!-- Form View -->
+    <record id="view_applicant_form_inherit" model="ir.ui.view">
+        <field name="name">hr.applicant.form.inherit</field>
+        <field name="model">hr.applicant</field>
+        <field name="inherit_id" ref="hr_recruitment.hr_applicant_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//form/sheet/group" position="inside">
+                <group string="Additional Information">
+                    <field name="current_ctc" widget='monetary'
+                    options="{'currency_field': 'currency_id', 'field_digits': True}"/>
+                    <field name="expected_ctc" widget='monetary'
+                    options="{'currency_field': 'currency_id', 'field_digits': True}"/>
+                    <field name="feedback"/>
+                    <field name="previous_organization"/>
+                    <field name="notice_period_days"/>
+                </group>
+            </xpath>
+             <xpath expr="//field[@name='type_id']" position="after">
+                <field name="pan_card"/>
+                <field name="aadhaar_card"/>
+            </xpath>
+            <xpath expr="//field[@name='categ_ids']" position="after">
+                <field name="previous_employer"/>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- Tree View -->
+    <record id="view_applicant_tree_inherit" model="ir.ui.view">
+        <field name="name">hr.applicant.tree.inherit</field>
+        <field name="model">hr.applicant</field>
+        <field name="inherit_id" ref="hr_recruitment.crm_case_tree_view_job"/>
+        <field name="arch" type="xml">
+            <xpath expr="//tree" position="inside">
+                <field name="current_ctc"/>
+                <field name="expected_ctc"/>
+                <field name="feedback"/>
+                <field name="previous_organization"/>
+                <field name="notice_period_days"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>
+
